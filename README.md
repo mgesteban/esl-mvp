@@ -14,7 +14,7 @@ An AI-powered tool for generating ESL lesson plans quickly and efficiently.
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/mgesteban/esl-mvp.git
 cd esl-lesson-planner
 ```
 

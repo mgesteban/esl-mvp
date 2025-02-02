@@ -8,106 +8,28 @@
   }
   
   body {
-    @apply bg-gradient-to-br from-primary-50 to-white text-gray-900 min-h-screen font-sans antialiased;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    @apply bg-gray-50 text-gray-900 min-h-screen font-sans antialiased;
   }
 }
 
 @layer components {
-  .input-base {
-    @apply w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors hover:border-primary-300;
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors;
   }
 
   .btn-primary {
-    @apply bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-4 rounded-lg 
-           hover:from-primary-700 hover:to-primary-800 
-           disabled:from-primary-300 disabled:to-primary-400 disabled:cursor-not-allowed 
-           transition-all transform hover:scale-[1.02] active:scale-[0.98] 
-           font-medium shadow-md;
+    @apply bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50;
   }
 
   .btn-secondary {
-    @apply bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 
-           transition-colors flex items-center gap-2;
+    @apply bg-white text-gray-700 border border-gray-200 hover:bg-gray-50;
   }
 
-  .card {
-    @apply bg-white rounded-xl shadow-lg border border-primary-100 p-6 
-           hover:shadow-xl transition-all duration-200;
-  }
-
-  .section-card {
-    @apply space-y-4 p-6 rounded-lg border;
-  }
-}
-
-/* Print Styles */
-@media print {
-  /* Hide non-printable elements */
-  .print\:hidden {
-    display: none !important;
-  }
-
-  /* Reset background colors for printing */
-  body {
-    background: white !important;
-  }
-
-  /* Ensure full width content */
-  .max-w-4xl,
-  .max-w-7xl {
-    max-width: none !important;
-  }
-
-  /* Remove shadows and borders */
-  .shadow-lg,
-  .shadow-md,
-  .shadow-sm {
-    box-shadow: none !important;
-  }
-
-  /* Adjust spacing */
-  .p-8 {
-    padding: 1rem !important;
-  }
-
-  .space-y-8 > * + * {
-    margin-top: 1.5rem !important;
-  }
-
-  /* Ensure text is black for better printing */
-  .text-blue-900,
-  .text-gray-700,
-  .text-gray-600 {
-    color: #000 !important;
-  }
-
-  /* Add subtle borders to sections */
-  section {
-    border: 1px solid #eee !important;
-    break-inside: avoid;
-    margin-bottom: 1rem !important;
-  }
-
-  /* Ensure proper page breaks */
-  h2, h3 {
-    break-after: avoid;
-  }
-
-  /* Reset background colors for sections */
-  .bg-blue-50,
-  .bg-purple-50,
-  .bg-green-50,
-  .bg-yellow-50,
-  .bg-red-50 {
-    background-color: white !important;
-  }
-
-  /* Add page margin */
-  @page {
-    margin: 2cm;
+  .badge {
+    @apply bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium;
   }
 }

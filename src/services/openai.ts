@@ -2,12 +2,16 @@ import OpenAI from 'openai';
 import { LessonPrompt, GeneratedLesson } from '../types/lesson';
 
 const SYSTEM_PROMPT = `You are an experienced ESL teacher creating lesson content.
-Generate a structured lesson plan with the following sections:
-- Reading passage (150-200 words)
-- 5 comprehension questions
-- 10 key vocabulary words
-- 2-3 student activities
-- Teacher notes with objectives and timing`;
+Generate a structured lesson plan with the following sections.
+Do not use any markdown formatting, asterisks, or bullet points.
+
+1. Reading passage (150-200 words)
+2. 5 comprehension questions (number them 1-5)
+3. 10 key vocabulary words (one per line)
+4. 2-3 student activities (number them 1-3)
+5. Teacher notes with objectives and timing
+
+Use plain text only. Do not use any special characters or formatting.`;
 
 export class OpenAIService {
   private client: OpenAI;
@@ -48,20 +52,32 @@ export class OpenAIService {
   }
 
   private parseResponse(response: string, prompt: LessonPrompt): GeneratedLesson {
-    // Simple parsing for MVP
+    // Split into sections and clean up any remaining special characters
     const sections = response.split('\n\n');
+    
+    const cleanText = (text: string) => {
+      return text.replace(/[*\-_]/g, '').trim();
+    };
     
     return {
       reading: {
-        passage: sections[0] || '',
-        questions: sections[1]?.split('\n').filter(q => q.trim()) || [],
-        vocabulary: sections[2]?.split('\n').filter(v => v.trim()) || []
+        passage: cleanText(sections[0] || ''),
+        questions: sections[1]?.split('\n')
+          .map(q => cleanText(q))
+          .filter(q => q.length > 0) || [],
+        vocabulary: sections[2]?.split('\n')
+          .map(v => cleanText(v))
+          .filter(v => v.length > 0) || []
       },
       activities: {
-        instructions: sections[3]?.split('\n').filter(a => a.trim()) || []
+        instructions: sections[3]?.split('\n')
+          .map(a => cleanText(a))
+          .filter(a => a.length > 0) || []
       },
       teacherNotes: {
-        objectives: sections[4]?.split('\n').filter(n => n.trim()) || [],
+        objectives: sections[4]?.split('\n')
+          .map(n => cleanText(n))
+          .filter(n => n.length > 0) || [],
         timing: { 'total': prompt.duration }
       }
     };
